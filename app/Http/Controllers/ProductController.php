@@ -42,18 +42,38 @@ class ProductController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        //
-    }
+{
+    $categories = Category::all();
 
+    return view('products.create', compact('categories'));
+}
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
-    }
+{
+    $request->validate([
+        'category_id' => 'required',
+        'nama_produk' => 'required',
+        'harga' => 'required|numeric',
+        'stok' => 'required|numeric',
+        'merk' => 'required',
+        'deskripsi' => 'required'
+    ]);
 
+    Product::create([
+        'category_id' => $request->category_id,
+        'nama_produk' => $request->nama_produk,
+        'harga' => $request->harga,
+        'stok' => $request->stok,
+        'merk' => $request->merk,
+        'deskripsi' => $request->deskripsi
+    ]);
+
+    return redirect()
+        ->route('products.index')
+        ->with('success', 'Produk berhasil ditambahkan');
+}
     /**
      * Display the specified resource.
      */
