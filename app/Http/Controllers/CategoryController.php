@@ -28,17 +28,31 @@ class CategoryController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        //
-    }
+{
+    return view('categories.create');
+}
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
-    }
+{
+    $request->validate([
+        'nama_kategori' => 'required',
+        'deskripsi' => 'required',
+        'status' => 'required'
+    ]);
+
+    Category::create([
+        'nama_kategori' => $request->nama_kategori,
+        'deskripsi' => $request->deskripsi,
+        'status' => $request->status
+    ]);
+
+    return redirect()
+        ->route('categories.index')
+        ->with('success','Kategori berhasil ditambahkan');
+}
 
     /**
      * Display the specified resource.
