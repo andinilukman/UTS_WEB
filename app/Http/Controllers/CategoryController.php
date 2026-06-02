@@ -96,8 +96,12 @@ public function update(Request $request, Category $category)
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
+    public function destroy(Category $category)
+{
+    $category->delete();
+
+    return redirect()
+        ->route('categories.index')
+        ->with('success','Kategori berhasil dihapus');
+}
 }
