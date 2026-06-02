@@ -19,10 +19,11 @@ return new class extends Migration
           ->onDelete('cascade');
 
     $table->string('nama_produk');
-    $table->decimal('harga', 12, 2);
+    $table->integer('harga');
     $table->integer('stok');
     $table->string('merk');
     $table->text('deskripsi');
+
     $table->timestamps();
 });
     }
