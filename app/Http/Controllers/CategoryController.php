@@ -65,18 +65,33 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+    public function edit(Category $category)
+{
+    return view('categories.edit', compact('category'));
+}
 
+public function update(Request $request, Category $category)
+{
+    $request->validate([
+        'nama_kategori' => 'required',
+        'deskripsi' => 'required',
+        'status' => 'required'
+    ]);
+
+    $category->update([
+        'nama_kategori' => $request->nama_kategori,
+        'deskripsi' => $request->deskripsi,
+        'status' => $request->status
+    ]);
+
+    return redirect()
+        ->route('categories.index')
+        ->with('success','Kategori berhasil diubah');
+}
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    
 
     /**
      * Remove the specified resource from storage.
