@@ -85,18 +85,46 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+   public function edit(Product $product)
+{
+    $categories = Category::all();
+
+    return view(
+        'products.edit',
+        compact('product', 'categories')
+    );
+}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    public function update(
+    Request $request,
+    Product $product
+)
+{
+    $request->validate([
+        'category_id' => 'required',
+        'nama_produk' => 'required',
+        'harga' => 'required|numeric',
+        'stok' => 'required|numeric',
+        'merk' => 'required',
+        'deskripsi' => 'required'
+    ]);
+
+    $product->update([
+        'category_id' => $request->category_id,
+        'nama_produk' => $request->nama_produk,
+        'harga' => $request->harga,
+        'stok' => $request->stok,
+        'merk' => $request->merk,
+        'deskripsi' => $request->deskripsi
+    ]);
+
+    return redirect()
+        ->route('products.index')
+        ->with('success', 'Produk berhasil diubah');
+}
 
     /**
      * Remove the specified resource from storage.
