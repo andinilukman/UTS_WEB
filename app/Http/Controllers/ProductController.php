@@ -176,4 +176,13 @@ public function restore($id)
     return redirect()
         ->route('products.trash');
 }
+public function forceDelete($id)
+{
+    Product::onlyTrashed()
+        ->findOrFail($id)
+        ->forceDelete();
+
+    return redirect()
+        ->route('products.trash');
+}
 }
