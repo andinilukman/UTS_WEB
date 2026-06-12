@@ -156,4 +156,15 @@ class ProductController extends Controller
             ->route('products.index')
             ->with('success', 'Produk berhasil dihapus');
     }
+    public function trash()
+{
+    $products = Product::onlyTrashed()
+                ->latest()
+                ->paginate(5);
+
+    return view(
+        'products.trash',
+        compact('products')
+    );
+}
 }

@@ -50,6 +50,9 @@
                         Reset
 
                     </a>
+                    <a href="{{ route('products.trash') }}" class="btn btn-secondary">
+                        Trash
+                    </a>
 
                 </div>
 

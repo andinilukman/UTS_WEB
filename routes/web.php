@@ -10,3 +10,4 @@ Route::get('/', function () {
 
 Route::resource('categories', CategoryController::class);
 Route::resource('products', ProductController::class);
+Route::get('/products/trash', [ProductController::class, 'trash'])->name('products.trash');
