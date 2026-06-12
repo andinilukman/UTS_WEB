@@ -62,6 +62,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Produk</th>
+                        <th>Status Produk</th>
                         <th>Kategori</th>
                         <th>Harga</th>
                         <th>Stok</th>
@@ -79,6 +80,8 @@
                             <td>{{ $loop->iteration }}</td>
 
                             <td>{{ $product->nama_produk }}</td>
+
+                            <td>{{ $product->status_produk }}</td>
 
                             <td>
                                 {{ $product->category->nama_kategori }}
