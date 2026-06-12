@@ -117,47 +117,34 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Product $product)
-    {
-        $request->validate([
-            'category_id' => 'required',
-            'nama_produk' => 'required',
-            'harga' => 'required|numeric',
-            'stok' => 'required|numeric',
-            'merk' => 'required',
-            'deskripsi' => 'required',
-            'status_produk' => 'required'
+{
+    DB::beginTransaction();
+
+    try {
+
+        $product->update([
+            'category_id' => $request->category_id,
+            'nama_produk' => $request->nama_produk,
+            'harga' => $request->harga,
+            'stok' => $request->stok,
+            'merk' => $request->merk,
+            'deskripsi' => $request->deskripsi,
+            'status_produk' => $request->status_produk
         ]);
 
-        DB::beginTransaction();
+        DB::commit();
 
-        try {
+        return redirect()
+            ->route('products.index')
+            ->with('success','Produk berhasil diubah');
 
-            $product->update([
-                'category_id' => $request->category_id,
-                'nama_produk' => $request->nama_produk,
-                'harga' => $request->harga,
-                'stok' => $request->stok,
-                'merk' => $request->merk,
-                'deskripsi' => $request->deskripsi,
-                'status_produk' => $request->status_produk
-            ]);
+    } catch (\Exception $e) {
 
-            DB::commit();
+        DB::rollBack();
 
-            return redirect()
-                ->route('products.index')
-                ->with('success', 'Produk berhasil diubah');
-
-        } catch (\Exception $e) {
-
-            DB::rollBack();
-
-            return redirect()
-                ->route('products.index')
-                ->with('error', 'Produk gagal diubah');
-        }
+        return back()->with('error',$e->getMessage());
     }
-
+}
     /**
      * Remove the specified resource from storage.
      */
