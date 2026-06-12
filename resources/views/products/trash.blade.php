@@ -92,6 +92,16 @@
                                     </button>
 
                                 </form>
+                                <form action="{{ route('products.restore', $product->id) }}" method="POST">
+
+                                    @csrf
+                                    @method('PUT')
+
+                                    <button class="btn btn-success btn-sm">
+                                        Restore
+                                    </button>
+
+                                </form>
 
                             </td>
 

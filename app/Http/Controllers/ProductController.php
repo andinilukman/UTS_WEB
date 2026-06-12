@@ -167,4 +167,13 @@ class ProductController extends Controller
         compact('products')
     );
 }
+public function restore($id)
+{
+    Product::onlyTrashed()
+        ->findOrFail($id)
+        ->restore();
+
+    return redirect()
+        ->route('products.trash');
+}
 }
